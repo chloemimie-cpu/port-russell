@@ -2,6 +2,11 @@ require('dotenv').config();
 const express = require('express');
 const session = require('express-session');
 const connectDB = require('./config/db');
+const { isAuthenticated } = require('./middlewares/auth');
+const dashboardController = require('./controllers/dashboardController');
+const swaggerUi = require('swagger-ui-express');
+const swaggerSpec = require('./config/swagger');
+
 
 const app = express();
 
@@ -19,14 +24,26 @@ app.use(session({
 
 connectDB();
 
+app.use('/', require('./routes/auth'));
 app.use('/catways', require('./routes/catways'));
 app.use('/users', require('./routes/users'));
 
 app.get('/', (req, res) => {
-  res.send('Le serveur fonctionne');
+  res.render('index');
 });
+
+app.get('/dashboard', isAuthenticated, dashboardController.getDashboard);
+app.get('/catways-page', isAuthenticated, (req, res) => {
+  res.render('catways');
+});
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+app.get('/reservations-page', isAuthenticated, (req, res) => {
+  res.render('reservations');
+});
+app.get('/users-page', isAuthenticated, (req, res) => {
+  res.render('users');
+});
+
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`Serveur lancé sur le port ${PORT}`));
-
-app.use('/', require('./routes/auth'));

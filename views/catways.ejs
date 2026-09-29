@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Catways - Port de Russell</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <main class="container">
+    <nav>
+      <a href="/dashboard">Tableau de bord</a> |
+      <a href="/catways-page">Catways</a> |
+      <a href="/reservations-page">Réservations</a> |
+      <a href="/users-page">Utilisateurs</a> |
+      <a href="/api-docs">Documentation API</a> |
+      <a href="/logout">Se déconnecter</a>
+    </nav>
+
+    <h1>Gestion des catways</h1>
+
+    <h2>Créer un catway</h2>
+    <form id="createForm">
+      <label for="catwayNumber">Numéro</label>
+      <input type="number" id="catwayNumber" required>
+
+      <label for="catwayType">Type</label>
+      <select id="catwayType" required>
+        <option value="long">long</option>
+        <option value="short">short</option>
+      </select>
+
+      <label for="catwayState">État</label>
+      <input type="text" id="catwayState" required>
+
+      <button type="submit">Créer</button>
+    </form>
+
+    <h2>Liste des catways</h2>
+    <table border="1" cellpadding="8" id="catwaysTable">
+      <thead>
+        <tr>
+          <th>Numéro</th>
+          <th>Type</th>
+          <th>État</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </main>
+
+  <script src="/js/catways.js"></script>
+</body>
+</html>
