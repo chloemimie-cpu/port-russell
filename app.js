@@ -6,15 +6,14 @@ const { isAuthenticated } = require('./middlewares/auth');
 const dashboardController = require('./controllers/dashboardController');
 const swaggerUi = require('swagger-ui-express');
 const swaggerSpec = require('./config/swagger');
-
+const path = require('path');
 
 const app = express();
 
 app.set('view engine', 'ejs');
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(express.static('public'));
-
+app.use(express.static(path.join(__dirname, 'public')));
 app.use(session({
   secret: process.env.SESSION_SECRET,
   resave: false,
